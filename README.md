@@ -1,6 +1,12 @@
 # Netflix GPT
  - Set up react project using Vite
  -  Configured tailwind CSS
+ - Header
+ - Routing of App
+ - Sign In Form
+ - Sign Up Form
+ - Form Validation
+ - Use ref Hook
 
 # Features
  - Login/Sign Up
