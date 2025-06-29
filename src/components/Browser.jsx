@@ -1,7 +1,9 @@
+import Header from "./Header";
+
 const Browser = () => {
     return (
         <div>
-            <h1 className="text-3xl">This is a Browser Component</h1>
+            <Header/>
         </div>
     )
 }

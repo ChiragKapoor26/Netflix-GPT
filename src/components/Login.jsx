@@ -3,8 +3,13 @@ import Header from "./Header";
 import { checkValidate } from "../utils/validate";
 import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { signInWithPopup, GoogleAuthProvider, GithubAuthProvider, } from "firebase/auth";
 
+const provider = new GoogleAuthProvider();
+const provider2 = new GithubAuthProvider();
 const Login = () => {
+    const navigate = useNavigate();
     const [isLogin,setisLogin] = useState(true);
     const [Errormessage,setErrormessage] = useState(null);
     const email = useRef(null);
@@ -12,6 +17,51 @@ const Login = () => {
     const username = useRef(null);
     const toggle = () => {
         {setisLogin(!isLogin)}
+    }
+    const handleGoogleSignin = () => {
+        signInWithPopup(auth, provider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    navigate("/browse")
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
+    }
+    const handleGithubSignin = () => {
+        signInWithPopup(auth, provider2)
+  .then((result) => {
+    // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+    const credential = GithubAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    navigate("/browse");
+    // The signed-in user info.
+    const user = result.user;
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GithubAuthProvider.credentialFromError(error);
+    // ...
+  });
+
     }
     const handleButtonClick = () => {
         // validate the form data
@@ -25,6 +75,7 @@ const Login = () => {
                     // Signed up 
                     const user = userCredential.user;
                     console.log(user);
+                    navigate("/browse");
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -39,6 +90,7 @@ const Login = () => {
                     // Signed in 
                     const user = userCredential.user;
                     console.log(user);
+                    navigate("/browse");
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -51,16 +103,21 @@ const Login = () => {
         <div>
             <Header/>
             <div>
-                <img src="https://assets.nflxext.com/ffe/siteui/vlv3/8200f588-2e93-4c95-8eab-ebba17821657/web/IN-en-20250616-TRIFECTA-perspective_9cbc87b2-d9bb-4fa8-9f8f-a4fe8fc72545_small.jpg" alt="header-logo" className="absolute"/>
+                <img src="https://assets.nflxext.com/ffe/siteui/vlv3/8200f588-2e93-4c95-8eab-ebba17821657/web/IN-en-20250616-TRIFECTA-perspective_9cbc87b2-d9bb-4fa8-9f8f-a4fe8fc72545_small.jpg" alt="background-image" className="absolute"/>
             </div>
-            <form className="p-8 bg-black absolute w-1/4 mt-36 mx-auto right-0 left-0 text-white rounded-md bg-opacity-80" onSubmit={(e)=> e.preventDefault()}>
+            <form className="p-7 bg-black absolute w-1/4 mt-36 mx-auto right-0 left-0 text-white rounded-md bg-opacity-80" onSubmit={(e)=> e.preventDefault()}>
                 <h1 className="text-3xl font-bold py-4 ">{isLogin?"Sign In":"Sign Up"}</h1>
                 {!isLogin && (<input ref={username} type="text" placeholder="User Name" className="p-2 my-3 w-full bg-gray-700 rounded-sm"/>)}
                 <input ref={email} type="text" placeholder="Email Address" className="p-2 my-3 w-full bg-gray-700 rounded-sm"/>
                 <input ref={password} type="password" placeholder="Password" className="p-2 my-3 w-full bg-gray-700 rounded-sm"/>
                 {Errormessage && (<p className="text-red-600 font-bold text-lg py-4">{Errormessage}</p>)}
                 <button className="px-4 py-2 my-4 bg-red-700 w-full rounded-md" onClick={handleButtonClick}>{isLogin?"Sign In":"Sign Up"}</button>
-                <p className="py-4 cursor-pointer font-bold" onClick={toggle}>{isLogin?"New to Netflix? Sign Up Now":"Already a user ? Sign In Now"}</p>
+                {isLogin && (<p className="font-bold mb-2">Sign in with:</p>)}
+                {isLogin && (<div className="flex justify-between w-1/2 mx-auto">
+                    <button className="bg-white rounded-full" onClick={handleGoogleSignin}><img src="https://img.icons8.com/?size=100&id=JvOSspDsPpwP&format=png&color=000000" className="w-10 h-10"/></button>
+                    <button className="bg-white rounded-full" onClick={handleGithubSignin}><img src="https://img.icons8.com/?size=100&id=62856&format=png&color=000000"className="w-10 h-10 z-20"/></button>
+                </div>)}
+                <p className="py-2 cursor-pointer font-bold" onClick={toggle}>{isLogin?"New to Netflix? Sign Up Now":"Already a user ? Sign In Now"}</p>
             </form>
         </div>
     )

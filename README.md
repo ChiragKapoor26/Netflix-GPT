@@ -10,6 +10,7 @@
  - Firebase set up
  - Deploying app to firebase
  - Create sign up user account
+ - Set Up Redux Store and store data of user into it
 
 # Features
  - Login/Sign Up
