@@ -4,12 +4,14 @@ import { checkValidate } from "../utils/validate";
 import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
-import { signInWithPopup, GoogleAuthProvider, GithubAuthProvider, } from "firebase/auth";
-
+import { signInWithPopup, GoogleAuthProvider, GithubAuthProvider,updateProfile } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 const provider = new GoogleAuthProvider();
 const provider2 = new GithubAuthProvider();
 const Login = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [isLogin,setisLogin] = useState(true);
     const [Errormessage,setErrormessage] = useState(null);
     const email = useRef(null);
@@ -46,11 +48,22 @@ const Login = () => {
     // This gives you a GitHub Access Token. You can use it to access the GitHub API.
     const credential = GithubAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
-    navigate("/browse");
+
     // The signed-in user info.
     const user = result.user;
     // IdP data available using getAdditionalUserInfo(result)
     // ...
+    dispatch(
+        addUser({
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        })
+      );
+
+      // ✅ Then navigate
+      navigate("/browse");
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
@@ -61,7 +74,6 @@ const Login = () => {
     const credential = GithubAuthProvider.credentialFromError(error);
     // ...
   });
-
     }
     const handleButtonClick = () => {
         // validate the form data
@@ -75,7 +87,18 @@ const Login = () => {
                     // Signed up 
                     const user = userCredential.user;
                     console.log(user);
+                    updateProfile(user, {
+                    displayName: username.current.value, photoURL: "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
+                    }).then( () => {
+                    // Profile updated!
+                    // ...
+                    const {uid , email , displayName , photoURL} = auth.currentUser;
+                    dispatch(addUser({uid:uid,email:email,displayName:displayName,photoURL:photoURL}));
                     navigate("/browse");
+                    }).catch((error) => {
+                    // An error occurred
+                    // ...
+                    });
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -113,9 +136,9 @@ const Login = () => {
                 {Errormessage && (<p className="text-red-600 font-bold text-lg py-4">{Errormessage}</p>)}
                 <button className="px-4 py-2 my-4 bg-red-700 w-full rounded-md" onClick={handleButtonClick}>{isLogin?"Sign In":"Sign Up"}</button>
                 {isLogin && (<p className="font-bold mb-2">Sign in with:</p>)}
-                {isLogin && (<div className="flex justify-between w-1/2 mx-auto">
+                {isLogin && (<div className="flex justify-center w-1/2 mx-auto">
                     <button className="bg-white rounded-full" onClick={handleGoogleSignin}><img src="https://img.icons8.com/?size=100&id=JvOSspDsPpwP&format=png&color=000000" className="w-10 h-10"/></button>
-                    <button className="bg-white rounded-full" onClick={handleGithubSignin}><img src="https://img.icons8.com/?size=100&id=62856&format=png&color=000000"className="w-10 h-10 z-20"/></button>
+                    {/* <button className="bg-white rounded-full" onClick={handleGithubSignin}><img src="https://img.icons8.com/?size=100&id=62856&format=png&color=000000"className="w-10 h-10 z-20"/></button> */}
                 </div>)}
                 <p className="py-2 cursor-pointer font-bold" onClick={toggle}>{isLogin?"New to Netflix? Sign Up Now":"Already a user ? Sign In Now"}</p>
             </form>

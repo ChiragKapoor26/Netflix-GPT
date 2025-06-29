@@ -1,9 +1,23 @@
 import { useEffect, useState } from "react";
 import clsx from "clsx";
+import {signOut } from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
     const [hasScrolled, setHasScrolled] = useState(false);
-
+    const navigate = useNavigate();
+    const user = useSelector(store => store.user);
+    console.log(user?.photoURL);
+    const handleSignOut = () => {
+        signOut(auth).then(() => {
+  // Sign-out successful.
+  navigate("/");
+}).catch((error) => {
+  // An error happened.
+});
+    }
     useEffect(() => {
         const handleScroll = () => {
             setHasScrolled(window.scrollY > 32);
@@ -18,7 +32,7 @@ const Header = () => {
     return (
         <div
             className={clsx(
-                "fixed top-0 z-10 w-full px-8 transition-all duration-300",
+                "fixed top-0 z-10 w-full px-8 transition-all duration-300 flex justify-between items-center",
                 hasScrolled
                     ? "bg-black py-1 opacity-90"
                     : "bg-gradient-to-b from-black py-4"
@@ -32,6 +46,11 @@ const Header = () => {
                 )}
                 alt="Logo"
             />
+            { user && (<div className="flex items-center gap-2">
+                <img alt="user-image" src={user?.photoURL} className="w-10 rounded-full"/>
+                <p className="text-white font-bold">{user?.displayName}</p>
+                <button className="text-white font-bold bg-red-800 p-2 rounded-md" onClick={handleSignOut}>Sign Out</button>
+            </div>)}
         </div>
     );
 };
