@@ -8,8 +8,9 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { Background, GithubLogo, GoogleLogo} from "../utils/constants";
 const provider = new GoogleAuthProvider();
-const provider2 = new GithubAuthProvider();
+
 const Login = () => {
+    
     const dispatch = useDispatch();
     const [isLogin,setisLogin] = useState(true);
     const [Errormessage,setErrormessage] = useState(null);
@@ -49,37 +50,49 @@ const Login = () => {
     // ...
   });
     }
-    const handleGithubSignin = () => {
-        signInWithPopup(auth, provider2)
-  .then((result) => {
-    // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-    const credential = GithubAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
+//     const handleGithubSignin = () => {
+        
+//         signInWithPopup(auth, provider2)
+//   .then((result) => {
+//     // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+//     const credential = GithubAuthProvider.credentialFromResult(result);
+//     const token = credential.accessToken;
 
-    // The signed-in user info.
-    const user = result.user;
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
-    dispatch(
-        addUser({
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-        })
-      );
-      console.log("Github sign in successfully!"); 
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GithubAuthProvider.credentialFromError(error);
-    // ...
-  });
-    }
+//     // The signed-in user info.
+//     const user = result.user;
+//     // IdP data available using getAdditionalUserInfo(result)
+//     // ...
+//     dispatch(
+//         addUser({
+//           uid: user.uid,
+//           email: user.email,
+//           displayName: user.displayName,
+//           photoURL: user.photoURL,
+//         })
+//       );
+//       console.log("Github sign in successfully!"); 
+//   }).catch((error) => {
+//     // Handle Errors here.
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     // The email of the user's account used.
+//     const email = error.customData.email;
+//     // The AuthCredential type that was used.
+//     const credential = GithubAuthProvider.credentialFromError(error);
+//     // ...
+//   });
+//     }
+const handleGithubSignin =async ()=>{
+const provider2 = new GithubAuthProvider();
+try {
+   const result = await signInWithPopup(auth, provider2);
+   console.log(result);
+
+} catch (error) {
+    console.log(error);
+}
+
+}
     const handleButtonClick = () => {
         // validate the form data
         const message = checkValidate(email?.current?.value,password?.current?.value,username?.current?.value);
