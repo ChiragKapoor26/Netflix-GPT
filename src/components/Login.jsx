@@ -3,14 +3,13 @@ import Header from "./Header";
 import { checkValidate } from "../utils/validate";
 import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { signInWithPopup, GoogleAuthProvider, GithubAuthProvider,updateProfile } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { Background, GithubLogo, GoogleLogo} from "../utils/constants";
 const provider = new GoogleAuthProvider();
 const provider2 = new GithubAuthProvider();
 const Login = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isLogin,setisLogin] = useState(true);
     const [Errormessage,setErrormessage] = useState(null);
@@ -25,12 +24,20 @@ const Login = () => {
   .then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
     const credential = GoogleAuthProvider.credentialFromResult(result);
-    navigate("/browse")
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
     // IdP data available using getAdditionalUserInfo(result)
     // ...
+    dispatch(
+        addUser({
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        })
+      );
+
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
@@ -61,9 +68,7 @@ const Login = () => {
           photoURL: user.photoURL,
         })
       );
-
-      // ✅ Then navigate
-      navigate("/browse");
+      console.log("Github sign in successfully!"); 
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
@@ -88,13 +93,12 @@ const Login = () => {
                     const user = userCredential.user;
                     console.log(user);
                     updateProfile(user, {
-                    displayName: username.current.value, photoURL: "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
+                    displayName: username.current.value, photoURL:"https://www.w3schools.com/howto/img_avatar.png"
                     }).then( () => {
                     // Profile updated!
                     // ...
                     const {uid , email , displayName , photoURL} = auth.currentUser;
                     dispatch(addUser({uid:uid,email:email,displayName:displayName,photoURL:photoURL}));
-                    navigate("/browse");
                     }).catch((error) => {
                     // An error occurred
                     // ...
@@ -112,8 +116,6 @@ const Login = () => {
                 .then((userCredential) => {
                     // Signed in 
                     const user = userCredential.user;
-                    console.log(user);
-                    navigate("/browse");
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -126,7 +128,7 @@ const Login = () => {
         <div>
             <Header/>
             <div>
-                <img src="https://assets.nflxext.com/ffe/siteui/vlv3/8200f588-2e93-4c95-8eab-ebba17821657/web/IN-en-20250616-TRIFECTA-perspective_9cbc87b2-d9bb-4fa8-9f8f-a4fe8fc72545_small.jpg" alt="background-image" className="absolute"/>
+                <img src={Background} alt="background-image" className="absolute"/>
             </div>
             <form className="p-7 bg-black absolute w-1/4 mt-36 mx-auto right-0 left-0 text-white rounded-md bg-opacity-80" onSubmit={(e)=> e.preventDefault()}>
                 <h1 className="text-3xl font-bold py-4 ">{isLogin?"Sign In":"Sign Up"}</h1>
@@ -136,9 +138,9 @@ const Login = () => {
                 {Errormessage && (<p className="text-red-600 font-bold text-lg py-4">{Errormessage}</p>)}
                 <button className="px-4 py-2 my-4 bg-red-700 w-full rounded-md" onClick={handleButtonClick}>{isLogin?"Sign In":"Sign Up"}</button>
                 {isLogin && (<p className="font-bold mb-2">Sign in with:</p>)}
-                {isLogin && (<div className="flex justify-center w-1/2 mx-auto">
-                    <button className="bg-white rounded-full" onClick={handleGoogleSignin}><img src="https://img.icons8.com/?size=100&id=JvOSspDsPpwP&format=png&color=000000" className="w-10 h-10"/></button>
-                    {/* <button className="bg-white rounded-full" onClick={handleGithubSignin}><img src="https://img.icons8.com/?size=100&id=62856&format=png&color=000000"className="w-10 h-10 z-20"/></button> */}
+                {isLogin && (<div className="flex justify-between w-1/2 mx-auto">
+                    <button className="bg-white rounded-full" onClick={handleGoogleSignin}><img src={GoogleLogo}className="w-10 h-10"/></button>
+                    <button className="bg-white rounded-full" onClick={handleGithubSignin}><img src={GithubLogo}className="w-10 h-10 z-20"/></button>
                 </div>)}
                 <p className="py-2 cursor-pointer font-bold" onClick={toggle}>{isLogin?"New to Netflix? Sign Up Now":"Already a user ? Sign In Now"}</p>
             </form>

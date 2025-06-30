@@ -11,6 +11,9 @@
  - Deploying app to firebase
  - Create sign up user account
  - Set Up Redux Store and store data of user into it
+ - Implemented sign out
+ - Update profile from manage users documentation of Firebase.
+ - Bug Fix : If user is not Logged then Redirect "/browse" to login page and vice-versa.
 
 # Features
  - Login/Sign Up
