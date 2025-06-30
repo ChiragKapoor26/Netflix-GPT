@@ -14,6 +14,7 @@
  - Implemented sign out
  - Update profile from manage users documentation of Firebase.
  - Bug Fix : If user is not Logged then Redirect "/browse" to login page and vice-versa.
+ - Unsubsribing onauthstatechanged when the component unmounts.
 
 # Features
  - Login/Sign Up
