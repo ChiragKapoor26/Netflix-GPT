@@ -2,3 +2,10 @@ export const netFlixLogo = "https://help.nflxext.com/helpcenter/OneTrust/oneTrus
 export const Background = "https://assets.nflxext.com/ffe/siteui/vlv3/8200f588-2e93-4c95-8eab-ebba17821657/web/IN-en-20250616-TRIFECTA-perspective_9cbc87b2-d9bb-4fa8-9f8f-a4fe8fc72545_small.jpg";
 export const GoogleLogo = "https://img.icons8.com/?size=100&id=JvOSspDsPpwP&format=png&color=000000";
 export const GithubLogo = "https://img.icons8.com/?size=100&id=62856&format=png&color=000000";
+export const API_options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YWE2MjY2MzE0NjVhODE0MTRjNzdkMjk3OWM2OWM3OSIsIm5iZiI6MTc1MTM1OTAyMC41MDMsInN1YiI6IjY4NjM5ZTJjMDgyNmY2MWI2ZGY4M2U2NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rjLCI_ycGig3207BAt7jncPiaB0DAq5NRos8oWs3K9w'
+  }
+};

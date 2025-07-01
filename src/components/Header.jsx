@@ -46,10 +46,7 @@ const Header = () => {
     return (
         <div
             className={clsx(
-                "fixed top-0 z-10 w-full px-8 transition-all duration-300 flex justify-between items-center",
-                hasScrolled
-                    ? "bg-black py-1 opacity-90"
-                    : "bg-gradient-to-b from-black py-4"
+                "fixed top-0 z-10 w-full px-8 transition-all duration-300 flex justify-between items-center bg-gradient-to-b from-black py-4"
             )}
         >
             <img

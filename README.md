@@ -15,6 +15,16 @@
  - Update profile from manage users documentation of Firebase.
  - Bug Fix : If user is not Logged then Redirect "/browse" to login page and vice-versa.
  - Unsubsribing onauthstatechanged when the component unmounts.
+ - Register TMDB API & Create an app and get access token
+ - Get data from TMDB now playing movies list API
+ - Custom Hook for Now Playing movies
+ - Create movie Slice
+ - Update store with movies data
+ - Planning for MainContainer and Secondary Container
+ - Fetch data for trailer videos
+ - Update Store with trailer video data
+ - Embedded the Youtube video and make it autoplay and mute
+ - Tailwind Classes to make main container look awesome.
 
 # Features
  - Login/Sign Up
