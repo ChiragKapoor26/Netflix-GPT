@@ -19,16 +19,16 @@ const Header = () => {
         // An error happened.
         });
     }
-    useEffect(() => {
-        const handleScroll = () => {
-            setHasScrolled(window.scrollY > 32);
-        };
+    // useEffect(() => {
+    //     const handleScroll = () => {
+    //         setHasScrolled(window.scrollY > 32);
+    //     };
 
-        window.addEventListener("scroll", handleScroll);
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
+    //     window.addEventListener("scroll", handleScroll);
+    //     return () => {
+    //         window.removeEventListener("scroll", handleScroll);
+    //     };
+    // }, []);
 
     useEffect(()=>{
         const unsubscribed = onAuthStateChanged(auth, (user) => {
@@ -46,7 +46,7 @@ const Header = () => {
     return (
         <div
             className={clsx(
-                "fixed top-0 z-10 w-full px-8 transition-all duration-300 flex justify-between items-center bg-gradient-to-b from-black py-4"
+                "absolute z-10 w-full px-8 transition-all duration-300 flex justify-between items-center bg-gradient-to-b from-black py-4"
             )}
         >
             <img
