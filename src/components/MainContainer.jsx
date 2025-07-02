@@ -4,11 +4,12 @@ import VideoBackground from "./VideoBackground";
 
 const MainContainer = () => {
     const movies = useSelector(store => store.movies?.nowPlayingMovies);
-    if(!movies) return;
-    const mainMovie = movies[0];
+     if(!movies) return;
+     console.log(movies.length);
+    const mainMovie = movies[2];
     const {original_title , overview,id} = mainMovie;
     return (
-        <div>
+        <div className="overflow-hidden">
             <VideoTitle title = {original_title} overview = {overview}/>
             <VideoBackground movieId = {id}/>
         </div>
