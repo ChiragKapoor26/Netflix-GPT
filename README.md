@@ -31,7 +31,10 @@
  - TMDB Image CDN Url
  - usePopularMovies custom Hook
  - useTopMovies custom Hook
- - useUpcoming Movies custm Hook
+ - useUpcoming Movies custom Hook
+ - GPT Search Page
+ - GPT Search Bar
+ - (Bonus) Add Multilanguage feature in our app
 
 # Features
  - Login/Sign Up
