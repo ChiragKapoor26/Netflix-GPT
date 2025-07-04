@@ -15,3 +15,4 @@ export const supportedLanguages = [
   {identifier:"hindi",name:"Hindi"},
   {identifier:"punjabi",name:"Punjabi"}
 ];
+export const GEMINI_API_KEY = 'AIzaSyBmJwpuPLZWMokgqDT2WRqnVyRrDFFyk6o';

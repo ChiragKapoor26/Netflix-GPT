@@ -54,7 +54,6 @@ const handleGithubSignin =async ()=>{
 const provider2 = new GithubAuthProvider();
 try {
    const result = await signInWithPopup(auth, provider2);
-   console.log(result);
 
 } catch (error) {
     console.log(error);
@@ -72,14 +71,12 @@ try {
                 .then((userCredential) => {
                     // Signed up 
                     const user = userCredential.user;
-                    console.log(user);
                     updateProfile(user, {
                     displayName: username.current.value, photoURL:"https://www.w3schools.com/howto/img_avatar.png"
                     }).then(() => {
                     // Profile updated!
                     // ...
                     const {uid , email , displayName , photoURL} = auth.currentUser;
-                    console.log(auth.currentUser);
                     dispatch(addUser({uid:uid,email:email,displayName:displayName,photoURL:photoURL}));
                     }).catch((error) => {
                     // An error occurred

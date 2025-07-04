@@ -30,17 +30,6 @@ const Header = () => {
     const handleLangChange = (e) => {
         dispatch(changeLanguage(e.target.value));
     }
-    // useEffect(() => {
-    //     const handleScroll = () => {
-    //         setHasScrolled(window.scrollY > 32);
-    //     };
-
-    //     window.addEventListener("scroll", handleScroll);
-    //     return () => {
-    //         window.removeEventListener("scroll", handleScroll);
-    //     };
-    // }, []);
-
     useEffect(()=>{
         const unsubscribed = onAuthStateChanged(auth, (user) => {
             if (user) {
