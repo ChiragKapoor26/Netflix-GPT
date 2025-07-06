@@ -107,9 +107,9 @@ try {
         <div>
             <Header/>
             <div>
-                <img src={Background} alt="background-image" className="absolute"/>
+                <img src={Background} alt="background-image" className="absolute md:fixed h-screen object-cover md:h-full w-full"/>
             </div>
-            <form className="p-7 bg-black absolute w-1/4 mt-36 mx-auto right-0 left-0 text-white rounded-md bg-opacity-80" onSubmit={(e)=> e.preventDefault()}>
+            <form className="mt-44 px-7 py-2 bg-black absolute w-3/4 md:w-1/4 md:mt-36 mx-auto right-0 left-0 text-white rounded-md bg-opacity-80 mb-10" onSubmit={(e)=> e.preventDefault()}>
                 <h1 className="text-3xl font-bold py-4 ">{isLogin?"Sign In":"Sign Up"}</h1>
                 {!isLogin && (<input ref={username} type="text" placeholder="User Name" className="p-2 my-3 w-full bg-gray-700 rounded-sm"/>)}
                 <input ref={email} type="text" placeholder="Email Address" className="p-2 my-3 w-full bg-gray-700 rounded-sm"/>

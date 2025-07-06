@@ -35,6 +35,11 @@
  - GPT Search Page
  - GPT Search Bar
  - (Bonus) Add Multilanguage feature in our app
+ - Get Gemini Api key
+ - Gpt Seach api call
+ - Fetch Gemini Movie Suggestion from Tmdb
+ - Memoization
+ - Adding .env file and add it to gitignore
 
 # Features
  - Login/Sign Up

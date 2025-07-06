@@ -46,7 +46,7 @@ const Header = () => {
     return (
         <div
             className={clsx(
-                "absolute z-10 w-full px-8 transition-all duration-300 flex justify-between items-center bg-gradient-to-b from-black py-4"
+                "absolute z-10 w-full px-8 justify-center transition-all duration-300 flex flex-col md:flex-row md:justify-between items-center bg-gradient-to-b from-black py-4"
             )}
         >
             <img
@@ -58,12 +58,12 @@ const Header = () => {
                 alt="Logo"
             />
             { user && (<div className="flex items-center gap-2">
-                {gpt&&(<select className="bg-black text-white border-none hover:border-none p-2 opacity-70" onChange={handleLangChange}>
-                    {supportedLanguages.map(lang => <option key={lang.identifier}value={lang.identifier}>{lang.name}</option>)}
+                {gpt&&(<select className="bg-black hidden md:inline-block text-white transition-duration-300 border-none hover:border-none p-2 opacity-70 text-lg md:text-balance" onChange={handleLangChange}>
+                    {supportedLanguages.map(lang => <option key={lang.identifier}value={lang.identifier}className="p-0 text-sm opacity-70">{lang.name}</option>)}
                 </select>)}
                 <button className="py-2 px-4 mx-4 my-2 bg-red-700 text-white rounded-lg" onClick={handleGptToggle}>{gpt?'Home':'Smart Search'}</button>
-                <img alt="user-image" src={user?.photoURL||''} className="w-10 rounded-full"/>
-                <p className="text-white font-bold">{user?.displayName}</p>
+                <img alt="user-image" src={user?.photoURL||''} className="w-10 rounded-full hidden md:inline-block"/>
+                <p className="text-white font-bold hidden md:inline-block">{user?.displayName}</p>
                 <button className="text-white font-bold bg-red-800 p-2 rounded-md" onClick={handleSignOut}>Sign Out</button>
             </div>)}
         </div>
