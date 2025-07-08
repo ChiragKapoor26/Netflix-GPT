@@ -19,7 +19,7 @@ const GptSearchBar = () => {
         SpeakText(movieNames);
         setisVoiceEnabled(false);
       }
-    }, [movieNames, isVoiceEnabled]);
+    }, [movieNames,isVoiceEnabled]);
 
     // The function below search movie in tmdb database
     const searchMovieTmdb = async(movie) => {
