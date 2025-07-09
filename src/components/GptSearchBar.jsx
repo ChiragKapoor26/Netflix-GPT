@@ -14,11 +14,12 @@ const GptSearchBar = () => {
     const movieResults = useSelector(store => store.Gpt.gptMovies);
     const movieNames= useSelector(store => store.Gpt.movieNames);
     const dispatch = useDispatch();
+    const hasSpokenRef = useRef(false);
     useEffect(() => {
-      if (movieNames && isVoiceEnabled) {
+      if (!movieNames || !isVoiceEnabled || hasSpokenRef.current) return;
         SpeakText(movieNames);
         setisVoiceEnabled(false);
-      }
+        hasSpokenRef.current = true;
     }, [movieNames]);
 
     // The function below search movie in tmdb database
@@ -31,6 +32,7 @@ const GptSearchBar = () => {
       dispatch(removeGptMovieResult());
       dispatch(removeGptMovieNames());
       searchText.current.value = "";
+      hasSpokenRef.current = false;
     }
     const RecordSpeech = () => {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -80,7 +82,6 @@ const GptSearchBar = () => {
       },
     }
   });
-  console.log(gptResponse.text);
   // Below we get the names of the movies from the tmdb api and dispatch it
   const gptMovies = gptResponse.text.split(",");
   dispatch(addGptMovieNames(gptMovies));
