@@ -94,12 +94,12 @@ const GptSearchBar = () => {
   dispatch(addGptMovieResult(tmdbResults));
     };
     return (
-        <div className="pt-[40%] md:pt-[10%] flex justify-center">
-            <form className=" bg-black w-full mx-4 md:mx-0 md:w-1/2 grid grid-cols-12 rounded-md" onSubmit={(e) => e.preventDefault()}>
-                {movieNames&&<button onClick={handleRemoveMovies}><img src="/images/backArrow.png" alt="back-arrow" className="bg-red-700 rounded-full ml-1" height={50} width={50}/></button>}
-                {!movieResults&&!movieNames&&<button className="bg-red-500 rounded-full py-1 md:py-2 px-2 col-span-1 my-3 ml-2" onClick={RecordSpeech}><img src="/images/mic.png" alt="mic-img"/></button>}
-                <input type="text" placeholder={lang[langname].gptSearchPlaceholder} className={clsx("p-3 my-3 ml-2 col-span-9 text-sm md:text-xl",movieResults&&movieNames?"col-span-8":"col-span-8")} ref={searchText}/>
-                <button className={clsx("bg-red-700 rounded-lg text-white py-1 md:py-2 px-2 md:px-2 col-span-2 my-3 mx-2",movieResults&&movieNames?"col-span-2":"col-span-2")} onClick={handleGptSearchClick}>{lang[langname].search}</button>
+        <div className="flex justify-center">
+            <form className=" bg-black w-4/5 mx-4 md:mx-0 md:w-4/5 lg:w-1/2 grid grid-cols-12 rounded-md mt-[50%] md:mt-[20%] lg:mt-[10%] px-1" onSubmit={(e) => e.preventDefault()}>
+                {movieNames&&<button onClick={handleRemoveMovies}><img src="/images/backArrow.png" alt="back-arrow" className="bg-red-700 rounded-full" height={50} width={50}/></button>}
+                {!movieResults&&!movieNames&&<button onClick={RecordSpeech}><img src="/images/mic.png" alt="mic-img" className="bg-red-700 rounded-700 rounded-full ml-1 p-1" height={40} width={40}/></button>}
+                <input type="text" placeholder={lang[langname].gptSearchPlaceholder} className={clsx("py-3 my-3 mx-3 md:mx-1 md:ml-3 col-span-8 text-sm md:text-xl rounded-lg",movieResults&&movieNames?"col-span-8":"col-span-8")} ref={searchText}/>
+                <button className={clsx("bg-red-700 rounded-lg text-white py-1 md:py-2 px-2 md:px-2 col-span-3 my-3 md:ml-2 mr-2 flex justify-center items-center",movieResults&&movieNames?"col-span-2":"col-span-3")} onClick={handleGptSearchClick}>{lang[langname].search}</button>
             </form>
         </div>
     )
