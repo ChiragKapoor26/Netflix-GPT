@@ -12,7 +12,7 @@ const GptMovieSuggestion = () => {
             {movieResults.map((movieArray) =>{
                 const firstMovie = movieArray[0];
                 return firstMovie ? (
-                    <GptMovieCard key={firstMovie.id} posterPath={firstMovie.poster_path} title={firstMovie.title}/>
+                    <GptMovieCard key={firstMovie.id} posterPath={firstMovie.poster_path} title={firstMovie.title} id={firstMovie.id}/>
                 ):null;
  } )}
         </div>
