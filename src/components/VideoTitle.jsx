@@ -1,6 +1,6 @@
 const VideoTitle = ({title , overview}) => {
     return (
-        <div className="aspect-video pt-[25%] xl:pt-[10%] px-12 lg:px-24 w-full absolute text-white bg-gradient-to-r from-black h-full md:mt-0 mt-[50%]">
+        <div className="aspect-video pt-[25%] xl:pt-[16%] px-12 lg:px-24 w-full absolute text-white bg-gradient-to-r from-black h-full md:mt-0 mt-[50%]">
             <h1 className="text-2xl lg:text-4xl font-bold mb-0 max-xl:mb-2">{title}</h1>
             <p className="py-4 text-lg max-w-[60%] min-w-[50%] max-lg:hidden inline-block">{overview}</p>
             <div className="flex gap-1 justify-between w-[30%]">
