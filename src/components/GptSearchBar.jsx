@@ -62,7 +62,6 @@ const GptSearchBar = () => {
   };
 
   r.onend = function () {
-    console.log("Speech recognition ended.");
   };
 
   try {
@@ -73,7 +72,6 @@ const GptSearchBar = () => {
 };
     const handleGptSearchClick = async () => {
         const query = searchText.current?.value?.trim();
-        console.log(searchText.current.value);
         if (!query) {
         setErrorMessage("Please enter a movie or genre to search.");
         return;
@@ -97,7 +95,6 @@ const GptSearchBar = () => {
   const promiseArray = gptMovies.map((movie) => searchMovieTmdb(movie));
   // The above data will return the array of promises to us
   const tmdbResults = await Promise.all(promiseArray);
-  console.log(tmdbResults);
   // Store the above data inside the redux store
   dispatch(addGptMovieResult(tmdbResults));
     };
