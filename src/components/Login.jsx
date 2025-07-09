@@ -56,6 +56,14 @@ try {
    const result = await signInWithPopup(auth, provider2);
 
 } catch (error) {
+    if(error.code ==="auth/account-exists-with-different-credential") {
+        const emailUsed = error.customData?.email;
+        setErrormessage(
+  `You already have an account with Google using ${emailUsed}. Please sign in with Google instead.`
+);
+    } else {
+        setErrormessage(error.code + " - " + error.message);
+    }
     console.log(error);
 }
 
