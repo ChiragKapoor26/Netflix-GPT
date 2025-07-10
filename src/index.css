@@ -3,20 +3,20 @@
 @tailwind utilities;
 @layer utilities {
   .scrollbar-hide {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    /* -ms-overflow-style: none; /* IE and Edge */
+    /* scrollbar-width: none; Firefox */ 
   }
 
   .scrollbar-hide::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    /* display: none; Chrome, Safari, Opera */
   }
   html, body {
-  overflow-y: scroll;
+  /* overflow-y: scroll;
   scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+  /* -ms-overflow-style: none; IE 10+ */ 
   }
 
   html::-webkit-scrollbar, body::-webkit-scrollbar {
-  display: none;
+  /* display: none; */
   }
 }
