@@ -8,7 +8,9 @@ const useGptMovieTrailer = (movieId) => {
     const movieVideos = useSelector((store)=>store.movies.gptTrailerVideo);
     const getMovieVideos = async () => {
         const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+        console.log(apiKey);
         const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US&api_key=${apiKey}`;
+        console.log(url);
         try {
             const data = await fetch(url, API_options);
             const json = await data.json();
