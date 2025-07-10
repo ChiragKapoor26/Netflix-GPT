@@ -25,9 +25,16 @@ const GptSearchBar = () => {
 
     // The function below search movie in tmdb database
     const searchMovieTmdb = async(movie) => {
-        const data = await fetch("https://api.themoviedb.org/3/search/movie?query="+movie+"&include_adult=false&language=en-US&page=1", API_options)
-        const json = await data.json();
-        return json.results;
+        const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+        const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(movie)}&include_adult=false&language=en-US&page=1&api_key=${apiKey}`;
+        try {
+          const data = await fetch(url);
+          const json = await data.json();
+          return json.results;
+        } catch(error) {
+          console.error("Error searching movie from TMDB:", error);
+          return [];
+        }
     }
     const handleRemoveMovies = () => {
       dispatch(removeGptMovieResult());
