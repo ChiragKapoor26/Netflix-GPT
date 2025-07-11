@@ -23,6 +23,7 @@ const Header = () => {
         }).catch((error) => {
         // An error happened.
         });
+        dispatch(removeUser());
     }
     const handleGptToggle = () => {
         dispatch(ToggleGptSearch());
